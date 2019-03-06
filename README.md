@@ -5,6 +5,10 @@
 
 <!-- badges: start -->
 
+[![Travis build
+status](https://travis-ci.org/EmilHvitfeldt/ggshapes.svg?branch=master)](https://travis-ci.org/EmilHvitfeldt/ggshapes)
+[![Codecov test
+coverage](https://codecov.io/gh/EmilHvitfeldt/ggshapes/branch/master/graph/badge.svg)](https://codecov.io/gh/EmilHvitfeldt/ggshapes?branch=master)
 <!-- badges: end -->
 
 The goal of ggshapes is to add more shapes such and stars and other

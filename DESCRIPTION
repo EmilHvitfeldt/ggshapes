@@ -17,3 +17,5 @@ Imports:
     grid,
     ggforce
 RoxygenNote: 6.1.1
+Suggests: 
+    covr
