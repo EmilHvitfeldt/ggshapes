@@ -1,20 +1,27 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 # ggshapes
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
-The goal of ggshapes is to add more shapes such and stars and other
-curves to ggplot2 the same way ggforce adds regular polygons and
-circles.
+The goal of ggshapes is to add more shapes such and stars and other curves to ggplot2 the same way ggforce adds regular polygons and circles.
 
 ## Installation
 
-You can install the released version of ggshapes from
-[CRAN](https://CRAN.R-project.org) with:
+You can install the released version of ggshapes from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 # Not released yet
@@ -27,19 +34,15 @@ And the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("EmilHvitfeldt/ggshapes")
 ```
-
 ## Example
 
-``` r
+```{r example}
 library(ggshapes)
-#> Loading required package: ggplot2
 ggplot() +
   geom_lissajous(aes(a = 5, b = 4, delta = 2))
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
-
-``` r
+```{r}
 data <- data.frame(a = rep(1:4, times = 4),
                    b = rep(1:4, each = 4),
                    delta = 1)
@@ -49,4 +52,3 @@ ggplot(data) +
   facet_grid(a ~ b)
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
