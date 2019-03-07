@@ -1,12 +1,16 @@
 Package: ggshapes
-Title: What the Package Does (One Line, Title Case)
+Title: Adds Geoms That Produces Shapes And Curves
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Emil",
            family = "Hvitfeldt",
            role = c("aut", "cre"),
            email = "emilhhvitfeldt@gmail.com")
-Description: What the package does (one paragraph).
+Description: This will add various practical and impractical shapes to be 
+    produced in 'ggplot2'. These shapes and curves will complement the
+    circle and regular polygon geoms in the 'ggforce' package.
+URL: https://github.com/EmilHvitfeldt/ggshapes
+BugReports: https://github.com/EmilHvitfeldt/ggshapes/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
