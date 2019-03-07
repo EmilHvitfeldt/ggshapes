@@ -104,12 +104,11 @@ stat_rhodonea <- function(mapping = NULL, data = NULL, geom = "rhodonea",
 
 #' @rdname geom_rhodonea
 #' @importFrom ggplot2 layer
-#' @importFrom ggforce GeomShape GeomCircle
 #' @export
 geom_rhodonea <- function(mapping = NULL, data = NULL, stat = "rhodonea",
                           position = "identity", n_points = 360, na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE, ...) {
-  layer(data = data, mapping = mapping, stat = stat, geom = GeomCircle,
+  layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
         position = position, show.legend = show.legend, inherit.aes = inherit.aes,
         params = list(n_points = n_points, na.rm = na.rm, ...))
 }

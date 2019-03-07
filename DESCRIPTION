@@ -13,11 +13,6 @@ LazyData: true
 Depends:
     ggplot2 (>= 2.2.0),
     R (>= 3.3.0)
-Imports: 
-    grid,
-    ggforce (>= 0.1.1)
 RoxygenNote: 6.1.1
 Suggests: 
     covr
-Remotes:  
-    thomasp85/ggforce
