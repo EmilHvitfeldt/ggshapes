@@ -49,6 +49,9 @@
 #'
 #'  ggplot() +
 #'   geom_lissajous(aes(a = 2, b = 3, delta = 1))
+#'
+#'  ggplot() +
+#'   geom_lissajous(aes(a = 2, b = 3, delta = 1, x0 = c(1, 4, 7)))
 NULL
 
 #' @rdname ggshapes-extensions
