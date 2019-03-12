@@ -20,3 +20,5 @@ Depends:
 RoxygenNote: 6.1.1
 Suggests: 
     covr
+Imports: 
+    tidyr

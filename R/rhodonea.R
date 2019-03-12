@@ -60,6 +60,10 @@
 #' ggplot() +
 #'   geom_rhodonea(aes(n = 5, d = 4, c = 4))
 #'
+#' ## Multiple roses
+#' ggplot() +
+#'   geom_rhodonea(aes(n = 5:1, d = 1:5, c = 0))
+#'
 #' ggplot() +
 #'   geom_rhodonea(aes(n = 5, d = 4, c = 4), fill = "white")
 NULL
@@ -73,22 +77,28 @@ StatRhodonea <- ggproto('StatRhodonea', Stat,
                         compute_layer = function(self, data, params, layout) {
                           if (is.null(data)) return(data)
                           data$group <- seq_len(nrow(data))
-                          n_roses <- nrow(data)
-                          data <- data[rep(seq_len(n_roses), each = params$n_points), ]
-                          if (is.null(data$x0)) data$x0 <- 0
-                          if (is.null(data$y0)) data$y0 <- 0
 
-                          k <- data$n / data$d
-                          theta <- seq(from = 0, to = 2 * pi * data$d[1], length.out = params$n_points)
-
-                          data$x <- data$x0 + (cos(k * theta) + data$c) * cos(theta)
-                          data$y <- data$y0 + (cos(k * theta) + data$c) * sin(theta)
-                          data
+                          data <- tidyr::nest(data, n, d, c)
+                          data$data <- lapply(data$data, rhodonea_calc, params = params)
+                          tidyr::unnest(data)
                         },
                         required_aes = c('n', 'd', 'c'),
                         default_aes = aes(x0 = 0, y0 = 0),
                         extra_params = c('n_points', 'na.rm')
 )
+
+rhodonea_calc <- function(data, params) {
+
+  k <- data$n / data$d
+  theta <- seq(from = 0, to = 2 * pi * data$d, length.out = params$n_points)
+
+  data.frame(
+    x = (cos(k * theta) + data$c) * cos(theta),
+    y = (cos(k * theta) + data$c) * sin(theta)
+    )
+}
+
+
 #' @rdname geom_rhodonea
 #' @importFrom ggplot2 layer
 #' @export
