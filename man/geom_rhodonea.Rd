@@ -119,7 +119,7 @@ ggplot() +
 
 ## Multiple roses
 ggplot() +
-  geom_rhodonea(aes(n = 5:1, d = 1:5, c = 0))
+  geom_rhodonea(aes(n = 5:1, d = 1:5, c = 0, x0 = 1:5 * 3))
 
 ggplot() +
   geom_rhodonea(aes(n = 5, d = 4, c = 4), fill = "white")
