@@ -68,8 +68,8 @@ This geom allows you to draw the hypocycloid curve.
 \details{
 The curve follows the the parameterized form
 
-\deqn{x = sin(a\theta + \delta)}
-\deqn{y = sin(b\theta)}
+\deqn{x = (r_max - r_min) cos(\theta) + r_min * cos(\frac{r_max - r_min}{r_min} \theta)}
+\deqn{x = (r_max - r_min) sin(\theta) + r_min * sin(\frac{r_max - r_min}{r_min} \theta)}
 
 these curves are closed when the radion \eqn{a / b} is rational. delta have
 been scaled to be in the interval [0, 1].
@@ -81,8 +81,8 @@ bold):
 
 - **x0**
 - **y0**
-- **a**
-- **b**
+- **r_max**
+- **r_min**
 - color
 - fill
 - size
@@ -101,13 +101,16 @@ bold):
 
 \examples{
 ggplot() +
-  geom_hypocycloid(aes(a = 4, b = 1))
+  geom_hypocycloid(aes(r_max = 4, r_min = 1))
 
 ggplot() +
-  geom_hypocycloid(aes(a = 8, b = 1))
+  geom_hypocycloid(aes(r_max = 8, r_min = 1))
 
  ggplot() +
-  geom_hypocycloid(aes(a = 2, b = 3, x0 = c(1, 4, 7)))
+  geom_hypocycloid(aes(r_max = c(4, 6, 8), r_min = 1))
+
+ ggplot() +
+  geom_hypocycloid(aes(r_max = c(4, 6, 8), r_min = 1))
 }
 \references{
 \url{https://en.wikipedia.org/wiki/Hypocycloid}

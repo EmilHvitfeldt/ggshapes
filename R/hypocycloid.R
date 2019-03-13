@@ -4,8 +4,8 @@
 #'
 #' The curve follows the the parameterized form
 #'
-#' \deqn{x = sin(a\theta + \delta)}
-#' \deqn{y = sin(b\theta)}
+#' \deqn{x = (r_max - r_min) cos(\theta) + r_min * cos(\frac{r_max - r_min}{r_min} \theta)}
+#' \deqn{x = (r_max - r_min) sin(\theta) + r_min * sin(\frac{r_max - r_min}{r_min} \theta)}
 #'
 #' these curves are closed when the radion \eqn{a / b} is rational. delta have
 #' been scaled to be in the interval [0, 1].
@@ -17,8 +17,8 @@
 #'
 #' - **x0**
 #' - **y0**
-#' - **a**
-#' - **b**
+#' - **r_max**
+#' - **r_min**
 #' - color
 #' - fill
 #' - size
@@ -44,13 +44,16 @@
 #'
 #' @examples
 #' ggplot() +
-#'   geom_hypocycloid(aes(a = 4, b = 1))
+#'   geom_hypocycloid(aes(r_max = 4, r_min = 1))
 #'
 #' ggplot() +
-#'   geom_hypocycloid(aes(a = 8, b = 1))
+#'   geom_hypocycloid(aes(r_max = 8, r_min = 1))
 #'
 #'  ggplot() +
-#'   geom_hypocycloid(aes(a = 2, b = 3, x0 = c(1, 4, 7)))
+#'   geom_hypocycloid(aes(r_max = c(4, 6, 8), r_min = 1))
+#'
+#'  ggplot() +
+#'   geom_hypocycloid(aes(r_max = c(4, 6, 8), r_min = 1))
 NULL
 
 #' @rdname ggshapes-extensions
@@ -61,22 +64,30 @@ NULL
 StatHypocycloid <- ggproto('StatHypocycloid', Stat,
                          compute_layer = function(self, data, params, layout) {
                            if (is.null(data)) return(data)
-                           data$group <- seq_len(nrow(data))
-                           n_roses <- nrow(data)
-                           data <- data[rep(seq_len(n_roses), each = params$n_points), ]
                            if (is.null(data$x0)) data$x0 <- 0
                            if (is.null(data$y0)) data$y0 <- 0
+                           data$group <- seq_len(nrow(data))
 
-                           t <- seq(from = 0, to = 2 * pi * max(data$a/data$b), length.out = params$n_points)
-
-                           data$x <- data$x0 + (data$a - data$b) * cos(t) + data$b * cos((data$a - data$b) / data$b * t)
-                           data$y <- data$y0 + (data$a - data$b) * sin(t) - data$b * sin((data$a - data$b) / data$b * t)
-                           data
+                           data <- tidyr::nest(data, r_min, r_max, x0, y0)
+                           data$data <- lapply(data$data, hypocycloid_calc, params = params)
+                           tidyr::unnest(data)
                          },
-                         required_aes = c('a', 'b'),
+                         required_aes = c('r_min', 'r_max'),
                          default_aes = aes(x0 = 0, y0 = 0),
                          extra_params = c('n_points', 'na.rm')
 )
+
+hypocycloid_calc <- function(data, params) {
+  t <- seq(from = 0, to = 2 * pi * data$r_min, length.out = params$n_points)
+
+  data.frame(
+    x = data$x0 + (data$r_max - data$r_min) * cos(t) +
+      data$r_min * cos((data$r_max - data$r_min) / data$r_min * t),
+    y = data$y0 + (data$r_max - data$r_min) * sin(t) -
+      data$r_min * sin((data$r_max - data$r_min) / data$r_min * t)
+  )
+}
+
 #' @rdname geom_hypocycloid
 #' @importFrom ggplot2 layer
 #' @export
