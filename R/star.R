@@ -48,7 +48,7 @@
 #'   geom_star(aes(r_min = 0.2, r_max = 1, n_tips = 5))
 #'
 #' ggplot() +
-#'   geom_star(aes(r_min = 0.8, r_max = 1, n_tips = 5))
+#'   geom_star(aes(r_min = 0.7, r_max = 1, n_tips = 5))
 #'
 #' # Playing witn offset parameter
 #' ggplot() +
@@ -82,43 +82,29 @@ StatStar <- ggproto('StatStar', Stat,
                            if (is.null(data$x0)) data$x0 <- 0
                            if (is.null(data$y0)) data$y0 <- 0
                            if (is.null(data$offset)) data$offset <- 0.5
-
                            data$group <- seq_len(nrow(data))
 
-                           theta <- lapply(data$group,
-                                           function(x) seq(0, 2 * pi, length.out = data$n_tips[x] + 1) + pi / 2)
-
-                           theta_s <- lapply(data$group,
-                                  function(x) {
-                                    seq(0, 2 * pi, length.out = data$n_tips[x] + 1)[-1]  + pi / 2 -
-                                      pi / data$n_tips[x] * 2 * data$offset[x]
-                                  })
-
-                           x_max <- lapply(data$group,
-                                           function(x) data$r_max[x] * cos(theta[[x]]))
-                           y_max <- lapply(data$group,
-                                           function(x) data$r_max[x] * sin(theta[[x]]))
-
-                           x_min <- lapply(data$group,
-                                           function(x) data$r_min[x] * cos(theta_s[[x]]))
-                           y_min <- lapply(data$group,
-                                           function(x) data$r_min[x] * sin(theta_s[[x]]))
-
-                           x_val <- lapply(data$group,
-                                           function(x) weave(x_max[[x]], x_min[[x]]))
-                           y_val <- lapply(data$group,
-                                           function(x) weave(y_max[[x]], y_min[[x]]))
-
-                           data <- data[rep(data$group, times = data$n_tips * 2 + 1), ]
-
-                           data$x <- unlist(x_val) + data$x0
-                           data$y <- unlist(y_val) + data$y0
-                           data
+                           data <- tidyr::nest(data, r_min, r_max, n_tips, offset, x0, y0)
+                           data$data <- lapply(data$data, star_calc, params = params)
+                           tidyr::unnest(data)
                          },
                          required_aes = c('r_min', 'r_max', 'n_tips'),
                          default_aes = aes(x0 = 0, y0 = 0, offset = 0.5),
                          extra_params = c('n_points', 'na.rm')
 )
+
+star_calc <- function(data, params) {
+  theta <- seq(0, 2 * pi, length.out = data$n_tips + 1) + pi / 2
+  theta_s <-seq(0, 2 * pi, length.out = data$n_tips + 1)[-1]  + pi / 2 -
+                        pi / data$n_tips * 2 * data$offset
+
+  data.frame(
+    x = data$x0 + weave(data$r_max * cos(theta), data$r_min * cos(theta_s)),
+    y = data$y0 + weave(data$r_max * sin(theta), data$r_min * sin(theta_s))
+  )
+
+}
+
 #' @rdname geom_star
 #' @importFrom ggplot2 layer
 #' @export

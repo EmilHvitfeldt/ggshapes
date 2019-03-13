@@ -105,7 +105,7 @@ ggplot() +
   geom_star(aes(r_min = 0.2, r_max = 1, n_tips = 5))
 
 ggplot() +
-  geom_star(aes(r_min = 0.8, r_max = 1, n_tips = 5))
+  geom_star(aes(r_min = 0.7, r_max = 1, n_tips = 5))
 
 # Playing witn offset parameter
 ggplot() +
