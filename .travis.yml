@@ -3,12 +3,20 @@
 language: R
 cache: packages
 
+r_github_packages:
+  - r-lib/pkgdown
+
 matrix:
   include:
   - r: devel
   - r: release
     after_success:
     - Rscript -e 'covr::codecov()'
+
+    deploy:
+      provider: script
+      script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE, run_dont_run = TRUE)'
+      skip_cleanup: true
   - r: oldrel
   - r: 3.3
   - r: 3.2
