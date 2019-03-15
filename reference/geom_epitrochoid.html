@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Draw a rose or Hypotrochoid curve — geom_hypotrochoid • ggshapes</title>
+<title>Draw a rose or Epitrochoid curve — geom_epitrochoid • ggshapes</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -31,11 +31,11 @@
 
 
 
-<meta property="og:title" content="Draw a rose or Hypotrochoid curve — geom_hypotrochoid" />
+<meta property="og:title" content="Draw a rose or Epitrochoid curve — geom_epitrochoid" />
 
-<meta property="og:description" content="This geom allows you to draw the hypotrochoid curve. A hypotrochoid is a
+<meta property="og:description" content="This geom allows you to draw the epitrochoid curve. A epitrochoid is a
 curve traced by a point attached to a circle of radius r_min rolling around
-the inside of a fixed circle of radius r_max, where the point is at a
+the outside of a fixed circle of radius r_max, where the point is at a
 distance h from the center of the interior circle." />
 <meta name="twitter:card" content="summary" />
 
@@ -103,25 +103,25 @@ distance h from the center of the interior circle." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Draw a rose or Hypotrochoid curve</h1>
-    <small class="dont-index">Source: <a href='https://github.com/EmilHvitfeldt/ggshapes/blob/master/R/hypotrochoid.R'><code>R/hypotrochoid.R</code></a></small>
-    <div class="hidden name"><code>geom_hypotrochoid.Rd</code></div>
+    <h1>Draw a rose or Epitrochoid curve</h1>
+    <small class="dont-index">Source: <a href='https://github.com/EmilHvitfeldt/ggshapes/blob/master/R/epitrochoid.R'><code>R/epitrochoid.R</code></a></small>
+    <div class="hidden name"><code>geom_epitrochoid.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This geom allows you to draw the hypotrochoid curve. A hypotrochoid is a
+    <p>This geom allows you to draw the epitrochoid curve. A epitrochoid is a
 curve traced by a point attached to a circle of radius r_min rolling around
-the inside of a fixed circle of radius r_max, where the point is at a
+the outside of a fixed circle of radius r_max, where the point is at a
 distance h from the center of the interior circle.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>stat_hypotrochoid</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"hypotrochoid"</span>,
+    <pre class="usage"><span class='fu'>stat_epitrochoid</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"epitrochoid"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>n_points</span> <span class='kw'>=</span> <span class='fl'>360</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
-<span class='fu'>geom_hypotrochoid</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"hypotrochoid"</span>,
+<span class='fu'>geom_epitrochoid</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"epitrochoid"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>n_points</span> <span class='kw'>=</span> <span class='fl'>360</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
@@ -198,8 +198,8 @@ layer, as a string.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The curve follows the the parameterized form</p>
-<p>$$x = (r_max - r_min) cos(\theta) + h * cos(\frac{r_max - r_min}{r_min} \theta)$$
-$$x = (r_max - r_min) sin(\theta) + h * sin(\frac{r_max - r_min}{r_min} \theta)$$</p>
+<p>$$x = (r_max + r_min) cos(\theta) - h * cos(\frac{r_max + r_min}{r_min} \theta)$$
+$$x = (r_max + r_min) sin(\theta) - h * sin(\frac{r_max + r_min}{r_min} \theta)$$</p>
 <p>these curves are closed when the radion \(a / b\) is rational. delta have
 been scaled to be in the interval [0, 1].</p>
     
@@ -229,36 +229,36 @@ bold):</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><a href='https://en.wikipedia.org/wiki/Hypocycloid'>https://en.wikipedia.org/wiki/Hypocycloid</a>
-    <a href='http://xahlee.info/SpecialPlaneCurves_dir/Hypotrochoid_dir/hypotrochoid.html'>http://xahlee.info/SpecialPlaneCurves_dir/Hypotrochoid_dir/hypotrochoid.html</a></p>
+    <p><a href='http://mathworld.wolfram.com/Epitrochoid.html'>http://mathworld.wolfram.com/Epitrochoid.html</a>
+    <a href='http://xahlee.info/SpecialPlaneCurves_dir/Epitrochoid_dir/epitrochoid.html'>http://xahlee.info/SpecialPlaneCurves_dir/Epitrochoid_dir/epitrochoid.html</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>[geom_epitrochoid()]</p></div>
+    <div class='dont-index'><p>[geom_hypotrochoid()]</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># When h is missing a hypocycloid is generated</span>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_hypotrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_hypotrochoid-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_epitrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_epitrochoid-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_hypotrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_hypotrochoid-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_epitrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_epitrochoid-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_hypotrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>8</span>), <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_hypotrochoid-3.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_epitrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>8</span>), <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_epitrochoid-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># specifying h</span>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_hypotrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>4</span>))</div><div class='img'><img src='geom_hypotrochoid-4.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_epitrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>4</span>))</div><div class='img'><img src='geom_epitrochoid-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_hypotrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>20</span> / <span class='fl'>13</span>))</div><div class='img'><img src='geom_hypotrochoid-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_epitrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>20</span> / <span class='fl'>13</span>))</div><div class='img'><img src='geom_epitrochoid-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># When things go wild</span>
 <span class='fu'>ggplot</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/expand.grid'>expand.grid</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>4</span>, <span class='fl'>20</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>2</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span>, <span class='fl'>9</span>))) +
-  <span class='fu'>geom_hypotrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='no'>Var1</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='no'>Var2</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>Var1</span>)) +
+  <span class='fu'>geom_epitrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='no'>Var1</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='no'>Var2</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>Var1</span>)) +
   <span class='fu'>coord_fixed</span>() +
   <span class='fu'>theme_minimal</span>() +
   <span class='fu'>scale_color_viridis_c</span>(<span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"B"</span>) +
   <span class='fu'>guides</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"none"</span>) +
-  <span class='fu'>facet_wrap</span>(~ <span class='no'>Var2</span>)</div><div class='img'><img src='geom_hypotrochoid-6.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>facet_wrap</span>(~ <span class='no'>Var2</span>)</div><div class='img'><img src='geom_epitrochoid-6.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
