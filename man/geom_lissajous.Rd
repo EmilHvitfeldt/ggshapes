@@ -79,11 +79,13 @@ been scaled to be in the interval [0, 1].
 geom_arc understand the following aesthetics (required aesthetics are in
 bold):
 
-- **x0**
-- **y0**
 - **a**
 - **b**
 - **delta**
+- x0
+- y0
+- xscale
+- yscale
 - color
 - fill
 - size
@@ -109,6 +111,9 @@ ggplot() +
 
  ggplot() +
   geom_lissajous(aes(a = 1:3, b = 3, delta = 1, x0 = c(1, 4, 7)))
+
+ ggplot() +
+  geom_lissajous(aes(a = 2, b = 3, delta = 1, xscale = 5, yscale = 2))
 }
 \references{
 \url{https://en.wikipedia.org/wiki/Lissajous_curve}

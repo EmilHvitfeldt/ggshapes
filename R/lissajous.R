@@ -15,11 +15,13 @@
 #' geom_arc understand the following aesthetics (required aesthetics are in
 #' bold):
 #'
-#' - **x0**
-#' - **y0**
 #' - **a**
 #' - **b**
 #' - **delta**
+#' - x0
+#' - y0
+#' - xscale
+#' - yscale
 #' - color
 #' - fill
 #' - size
@@ -52,6 +54,9 @@
 #'
 #'  ggplot() +
 #'   geom_lissajous(aes(a = 1:3, b = 3, delta = 1, x0 = c(1, 4, 7)))
+#'
+#'  ggplot() +
+#'   geom_lissajous(aes(a = 2, b = 3, delta = 1, xscale = 5, yscale = 2))
 NULL
 
 #' @rdname ggshapes-extensions
@@ -64,14 +69,16 @@ StatLissajous <- ggproto('StatLissajous', Stat,
                           if (is.null(data)) return(data)
                           if (is.null(data$x0)) data$x0 <- 0
                           if (is.null(data$y0)) data$y0 <- 0
+                          if (is.null(data$xscale)) data$xscale <- 1
+                          if (is.null(data$yscale)) data$yscale <- 1
                           data$group <- seq_len(nrow(data))
 
-                          data <- tidyr::nest(data, a, b, delta, x0, y0)
+                          data <- tidyr::nest(data, a, b, delta, x0, y0, xscale, yscale)
                           data$data <- lapply(data$data, lissajous_calc, params = params)
                           tidyr::unnest(data)
                         },
                         required_aes = c('a', 'b', 'delta'),
-                        default_aes = aes(x0 = 0, y0 = 0),
+                        default_aes = aes(x0 = 0, y0 = 0, xscale = 1, yscale = 1),
                         extra_params = c('n_points', 'na.rm')
 )
 
@@ -79,8 +86,8 @@ lissajous_calc <- function(data, params) {
   t <- seq(from = 0, to = 2 * pi, length.out = params$n_points)
 
   data.frame(
-    x = data$x0 + sin(data$a * t + data$delta * pi),
-    y = data$y0 + sin(data$b * t)
+    x = data$x0 + data$xscale * sin(data$a * t + data$delta * pi),
+    y = data$y0 + data$yscale * sin(data$b * t)
   )
 }
 
