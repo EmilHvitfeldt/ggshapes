@@ -85,11 +85,13 @@ changing how much the flower spreads out.
 geom_arc understand the following aesthetics (required aesthetics are in
 bold):
 
-- **x0**
-- **y0**
 - **n**
 - **d**
 - **c**
+- x0
+- y0
+- xscale
+- yscale
 - color
 - fill
 - size
@@ -116,6 +118,10 @@ ggplot() +
 
 ggplot() +
   geom_rose(aes(n = 5, d = 4, c = 4))
+
+# Rescaling
+ggplot() +
+  geom_rose(aes(n = 5, d = 4, c = 4, xscale = 6, yscale = 2))
 
 ## Multiple roses
 ggplot() +

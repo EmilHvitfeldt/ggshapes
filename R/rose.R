@@ -21,11 +21,13 @@
 #' geom_arc understand the following aesthetics (required aesthetics are in
 #' bold):
 #'
-#' - **x0**
-#' - **y0**
 #' - **n**
 #' - **d**
 #' - **c**
+#' - x0
+#' - y0
+#' - xscale
+#' - yscale
 #' - color
 #' - fill
 #' - size
@@ -60,6 +62,10 @@
 #' ggplot() +
 #'   geom_rose(aes(n = 5, d = 4, c = 4))
 #'
+#' # Rescaling
+#' ggplot() +
+#'   geom_rose(aes(n = 5, d = 4, c = 4, xscale = 6, yscale = 2))
+#'
 #' ## Multiple roses
 #' ggplot() +
 #'   geom_rose(aes(n = 5:1, d = 1:5, c = 0, x0 = 1:5 * 3))
@@ -78,14 +84,16 @@ StatRose <- ggproto('StatRose', Stat,
                           if (is.null(data)) return(data)
                           if (is.null(data$x0)) data$x0 <- 0
                           if (is.null(data$y0)) data$y0 <- 0
+                          if (is.null(data$xscale)) data$xscale <- 1
+                          if (is.null(data$yscale)) data$yscale <- 1
                           data$group <- seq_len(nrow(data))
 
-                          data <- tidyr::nest(data, n, d, c, x0, y0)
+                          data <- tidyr::nest(data, n, d, c, x0, y0, xscale, yscale)
                           data$data <- lapply(data$data, rose_calc, params = params)
                           tidyr::unnest(data)
                         },
                         required_aes = c('n', 'd', 'c'),
-                        default_aes = aes(x0 = 0, y0 = 0),
+                        default_aes = aes(x0 = 0, y0 = 0, xscale = 1, yscale = 1),
                         extra_params = c('n_points', 'na.rm')
 )
 
@@ -94,8 +102,8 @@ rose_calc <- function(data, params) {
   theta <- seq(from = 0, to = 2 * pi * data$d, length.out = params$n_points)
 
   data.frame(
-    x = data$x0 + (cos(k * theta) + data$c) * cos(theta),
-    y = data$y0 + (cos(k * theta) + data$c) * sin(theta)
+    x = data$x0 + data$xscale * (cos(k * theta) + data$c) * cos(theta) / (1 + data$c),
+    y = data$y0 + data$yscale * (cos(k * theta) + data$c) * sin(theta) / (1 + data$c)
     )
 }
 
