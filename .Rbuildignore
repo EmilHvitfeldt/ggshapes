@@ -6,3 +6,4 @@
 ^LICENSE\.md$
 ^ggshapes\.Rproj$
 ^\.Rproj\.user$
+^_pkgdown\.yml$

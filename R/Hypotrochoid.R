@@ -1,16 +1,17 @@
-#' Draw a rose or hypocycloid curve
+#' Draw a rose or Hypotrochoid curve
 #'
-#' This geom allows you to draw the hypocycloid curve.
+#' This geom allows you to draw the hypotrochoid curve.
 #'
 #' The curve follows the the parameterized form
 #'
-#' \deqn{x = (r_max - r_min) cos(\theta) + r_min * cos(\frac{r_max - r_min}{r_min} \theta)}
-#' \deqn{x = (r_max - r_min) sin(\theta) + r_min * sin(\frac{r_max - r_min}{r_min} \theta)}
+#' \deqn{x = (r_max - r_min) cos(\theta) + h * cos(\frac{r_max - r_min}{r_min} \theta)}
+#' \deqn{x = (r_max - r_min) sin(\theta) + h * sin(\frac{r_max - r_min}{r_min} \theta)}
 #'
 #' these curves are closed when the radion \eqn{a / b} is rational. delta have
 #' been scaled to be in the interval [0, 1].
 #'
 #' @references \url{https://en.wikipedia.org/wiki/Hypocycloid}
+#'     \url{http://xahlee.info/SpecialPlaneCurves_dir/Hypotrochoid_dir/hypotrochoid.html}
 #' @section Aesthetics:
 #' geom_arc understand the following aesthetics (required aesthetics are in
 #' bold):
@@ -19,6 +20,7 @@
 #' - **y0**
 #' - **r_max**
 #' - **r_min**
+#' - h
 #' - color
 #' - fill
 #' - size
@@ -39,21 +41,36 @@
 #'
 #' @author Emil Hvitfeldt
 #'
-#' @name geom_hypocycloid
-#' @rdname geom_hypocycloid
+#' @name geom_hypotrochoid
+#' @rdname geom_hypotrochoid
 #'
 #' @examples
+#'
+#' # When h is missing a hypocycloid is generated
 #' ggplot() +
-#'   geom_hypocycloid(aes(r_max = 4, r_min = 1))
+#'   geom_hypotrochoid(aes(r_max = 4, r_min = 1))
 #'
 #' ggplot() +
-#'   geom_hypocycloid(aes(r_max = 8, r_min = 1))
+#'   geom_hypotrochoid(aes(r_max = 8, r_min = 1))
 #'
-#'  ggplot() +
-#'   geom_hypocycloid(aes(r_max = c(4, 6, 8), r_min = 1))
+#' ggplot() +
+#'   geom_hypotrochoid(aes(r_max = c(4, 6, 8), r_min = 1))
 #'
-#'  ggplot() +
-#'   geom_hypocycloid(aes(r_max = c(4, 6, 8), r_min = 1))
+#' # specifying h
+#' ggplot() +
+#'   geom_hypotrochoid(aes(r_max = 4, r_min = 1, h = 4))
+#'
+#' ggplot() +
+#'   geom_hypotrochoid(aes(r_max = 4, r_min = 3, h = 20 / 13))
+#'
+#' # When things go wild
+#' ggplot(expand.grid(seq(4, 20, by = 2), c(1, 3, 5, 9))) +
+#'   geom_hypotrochoid(aes(r_max = Var1, r_min = Var2, color = Var1)) +
+#'   coord_fixed() +
+#'   theme_minimal() +
+#'   scale_color_viridis_c(option = "B") +
+#'   guides(color = "none") +
+#'   facet_wrap(~ Var2)
 NULL
 
 #' @rdname ggshapes-extensions
@@ -61,50 +78,51 @@ NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto Stat aes
 #' @export
-StatHypocycloid <- ggproto('StatHypocycloid', Stat,
+StatHypotrochoid <- ggproto('StatHypotrochoid', Stat,
                          compute_layer = function(self, data, params, layout) {
                            if (is.null(data)) return(data)
                            if (is.null(data$x0)) data$x0 <- 0
                            if (is.null(data$y0)) data$y0 <- 0
+                           if (is.null(data$h)) data$h <- data$r_min
                            data$group <- seq_len(nrow(data))
 
-                           data <- tidyr::nest(data, r_min, r_max, x0, y0)
-                           data$data <- lapply(data$data, hypocycloid_calc, params = params)
+                           data <- tidyr::nest(data, r_min, r_max, h, x0, y0)
+                           data$data <- lapply(data$data, hypotrochoid_calc, params = params)
                            tidyr::unnest(data)
                          },
                          required_aes = c('r_min', 'r_max'),
-                         default_aes = aes(x0 = 0, y0 = 0),
+                         default_aes = aes(x0 = 0, y0 = 0, h = NULL),
                          extra_params = c('n_points', 'na.rm')
 )
 
-hypocycloid_calc <- function(data, params) {
+hypotrochoid_calc <- function(data, params) {
   t <- seq(from = 0, to = 2 * pi * data$r_min, length.out = params$n_points)
 
   data.frame(
     x = data$x0 + (data$r_max - data$r_min) * cos(t) +
-      data$r_min * cos((data$r_max - data$r_min) / data$r_min * t),
+      data$h * cos((data$r_max - data$r_min) / data$r_min * t),
     y = data$y0 + (data$r_max - data$r_min) * sin(t) -
-      data$r_min * sin((data$r_max - data$r_min) / data$r_min * t)
+      data$h * sin((data$r_max - data$r_min) / data$r_min * t)
   )
 }
 
-#' @rdname geom_hypocycloid
+#' @rdname geom_hypotrochoid
 #' @importFrom ggplot2 layer
 #' @export
-stat_hypocycloid <- function(mapping = NULL, data = NULL, geom = "hypocycloid",
+stat_hypotrochoid <- function(mapping = NULL, data = NULL, geom = "hypotrochoid",
                            position = "identity", n_points = 360, na.rm = FALSE, show.legend = NA,
                            inherit.aes = TRUE, ...) {
   layer(
-    stat = StatHypocycloid, data = data, mapping = mapping, geom = geom,
+    stat = StatHypotrochoid, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(na.rm = na.rm, n_points = n_points, ...)
   )
 }
 
-#' @rdname geom_hypocycloid
+#' @rdname geom_hypotrochoid
 #' @importFrom ggplot2 layer
 #' @export
-geom_hypocycloid <- function(mapping = NULL, data = NULL, stat = "hypocycloid",
+geom_hypotrochoid <- function(mapping = NULL, data = NULL, stat = "hypotrochoid",
                            position = "identity", n_points = 360, na.rm = FALSE,
                            show.legend = NA, inherit.aes = TRUE, ...) {
   layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
