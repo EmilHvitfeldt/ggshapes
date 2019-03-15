@@ -1,6 +1,9 @@
 #' Draw a rose or Hypotrochoid curve
 #'
-#' This geom allows you to draw the hypotrochoid curve.
+#' This geom allows you to draw the hypotrochoid curve. A hypotrochoid is a
+#' curve traced by a point attached to a circle of radius r_min rolling around
+#' the inside of a fixed circle of radius r_max, where the point is at a
+#' distance h from the center of the interior circle.
 #'
 #' The curve follows the the parameterized form
 #'
