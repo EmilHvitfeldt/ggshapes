@@ -43,6 +43,7 @@
 #'
 #' @name geom_hypotrochoid
 #' @rdname geom_hypotrochoid
+#' @seealso [geom_epitrochoid()]
 #'
 #' @examples
 #'
