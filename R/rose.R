@@ -46,26 +46,26 @@
 #'
 #' @author Emil Hvitfeldt
 #'
-#' @name geom_rhodonea
-#' @rdname geom_rhodonea
+#' @name geom_rose
+#' @rdname geom_rose
 #'
 #' @examples
 #'
 #' ggplot() +
-#'   geom_rhodonea(aes(n = 2, d = 1, c = 0))
+#'   geom_rose(aes(n = 2, d = 1, c = 0))
 #'
 #' ggplot() +
-#'   geom_rhodonea(aes(n = 2, d = 8, c = 0))
+#'   geom_rose(aes(n = 2, d = 8, c = 0))
 #'
 #' ggplot() +
-#'   geom_rhodonea(aes(n = 5, d = 4, c = 4))
+#'   geom_rose(aes(n = 5, d = 4, c = 4))
 #'
 #' ## Multiple roses
 #' ggplot() +
-#'   geom_rhodonea(aes(n = 5:1, d = 1:5, c = 0, x0 = 1:5 * 3))
+#'   geom_rose(aes(n = 5:1, d = 1:5, c = 0, x0 = 1:5 * 3))
 #'
 #' ggplot() +
-#'   geom_rhodonea(aes(n = 5, d = 4, c = 4), fill = "white")
+#'   geom_rose(aes(n = 5, d = 4, c = 4), fill = "white")
 NULL
 
 #' @rdname ggshapes-extensions
@@ -73,7 +73,7 @@ NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto Stat aes
 #' @export
-StatRhodonea <- ggproto('StatRhodonea', Stat,
+StatRose <- ggproto('StatRose', Stat,
                         compute_layer = function(self, data, params, layout) {
                           if (is.null(data)) return(data)
                           if (is.null(data$x0)) data$x0 <- 0
@@ -81,7 +81,7 @@ StatRhodonea <- ggproto('StatRhodonea', Stat,
                           data$group <- seq_len(nrow(data))
 
                           data <- tidyr::nest(data, n, d, c, x0, y0)
-                          data$data <- lapply(data$data, rhodonea_calc, params = params)
+                          data$data <- lapply(data$data, rose_calc, params = params)
                           tidyr::unnest(data)
                         },
                         required_aes = c('n', 'd', 'c'),
@@ -89,7 +89,7 @@ StatRhodonea <- ggproto('StatRhodonea', Stat,
                         extra_params = c('n_points', 'na.rm')
 )
 
-rhodonea_calc <- function(data, params) {
+rose_calc <- function(data, params) {
   k <- data$n / data$d
   theta <- seq(from = 0, to = 2 * pi * data$d, length.out = params$n_points)
 
@@ -100,23 +100,23 @@ rhodonea_calc <- function(data, params) {
 }
 
 
-#' @rdname geom_rhodonea
+#' @rdname geom_rose
 #' @importFrom ggplot2 layer
 #' @export
-stat_rhodonea <- function(mapping = NULL, data = NULL, geom = "rhodonea",
+stat_rose <- function(mapping = NULL, data = NULL, geom = "rose",
                           position = "identity", n_points = 360, na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
-    stat = StatRhodonea, data = data, mapping = mapping, geom = geom,
+    stat = StatRose, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(na.rm = na.rm, n_points = n_points, ...)
   )
 }
 
-#' @rdname geom_rhodonea
+#' @rdname geom_rose
 #' @importFrom ggplot2 layer
 #' @export
-geom_rhodonea <- function(mapping = NULL, data = NULL, stat = "rhodonea",
+geom_rose <- function(mapping = NULL, data = NULL, stat = "rose",
                           position = "identity", n_points = 360, na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE, ...) {
   layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
