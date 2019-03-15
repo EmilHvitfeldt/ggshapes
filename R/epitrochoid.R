@@ -5,6 +5,8 @@
 #' the outside of a fixed circle of radius r_max, where the point is at a
 #' distance h from the center of the interior circle.
 #'
+#' To unscale the curve, please set xscale and yscale to r_max + r_min + h.
+#'
 #' The curve follows the the parameterized form
 #'
 #' \deqn{x = (r_max + r_min) cos(\theta) - h * cos(\frac{r_max + r_min}{r_min} \theta)}
@@ -19,10 +21,12 @@
 #' geom_arc understand the following aesthetics (required aesthetics are in
 #' bold):
 #'
-#' - **x0**
-#' - **y0**
 #' - **r_max**
 #' - **r_min**
+#' - x0
+#' - y0
+#' - xscale
+#' - yscale
 #' - h
 #' - color
 #' - fill
@@ -67,9 +71,15 @@
 #' ggplot() +
 #'   geom_epitrochoid(aes(r_max = 4, r_min = 3, h = 20 / 13))
 #'
+#' # Changing the horizontal and vertical scale
+#'
+#' ggplot() +
+#'   geom_epitrochoid(aes(r_max = 4, r_min = 3, xscale = 10, yscale = 3))
+#'
 #' # When things go wild
 #' ggplot(expand.grid(seq(4, 20, by = 2), c(1, 3, 5, 9))) +
-#'   geom_epitrochoid(aes(r_max = Var1, r_min = Var2, color = Var1)) +
+#'   geom_epitrochoid(aes(r_max = Var1, r_min = Var2, color = Var1,
+#'                        xscale = Var1 + Var2, yscale = Var1 + Var2)) +
 #'   coord_fixed() +
 #'   theme_minimal() +
 #'   scale_color_viridis_c(option = "B") +
@@ -87,15 +97,17 @@ StatEpitrochoid <- ggproto('StatEpitrochoid', Stat,
                               if (is.null(data)) return(data)
                               if (is.null(data$x0)) data$x0 <- 0
                               if (is.null(data$y0)) data$y0 <- 0
+                              if (is.null(data$xscale)) data$xscale <- 1
+                              if (is.null(data$yscale)) data$yscale <- 1
                               if (is.null(data$h)) data$h <- data$r_min
                               data$group <- seq_len(nrow(data))
 
-                              data <- tidyr::nest(data, r_min, r_max, h, x0, y0)
+                              data <- tidyr::nest(data, r_min, r_max, h, x0, y0, xscale, yscale)
                               data$data <- lapply(data$data, epitrochoid_calc, params = params)
                               tidyr::unnest(data)
                             },
                             required_aes = c('r_min', 'r_max'),
-                            default_aes = aes(x0 = 0, y0 = 0, h = NULL),
+                            default_aes = aes(x0 = 0, y0 = 0, h = NULL, xscale = 1, yscale = 1),
                             extra_params = c('n_points', 'na.rm')
 )
 
@@ -103,10 +115,10 @@ epitrochoid_calc <- function(data, params) {
   t <- seq(from = 0, to = 2 * pi * data$r_min, length.out = params$n_points)
 
   data.frame(
-    x = data$x0 + (data$r_max + data$r_min) * cos(t) -
-      data$h * cos((data$r_max + data$r_min) / data$r_min * t),
-    y = data$y0 + (data$r_max + data$r_min) * sin(t) -
-      data$h * sin((data$r_max + data$r_min) / data$r_min * t)
+    x = data$x0 + data$xscale * ((data$r_max + data$r_min) * cos(t) -
+      data$h * cos((data$r_max + data$r_min) / data$r_min * t)) / (data$r_max + data$r_min + data$h),
+    y = data$y0 + data$yscale * ((data$r_max + data$r_min) * sin(t) -
+      data$h * sin((data$r_max + data$r_min) / data$r_min * t)) / (data$r_max + data$r_min + data$h)
   )
 }
 

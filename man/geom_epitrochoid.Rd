@@ -69,6 +69,8 @@ the outside of a fixed circle of radius r_max, where the point is at a
 distance h from the center of the interior circle.
 }
 \details{
+To unscale the curve, please set xscale and yscale to r_max + r_min + h.
+
 The curve follows the the parameterized form
 
 \deqn{x = (r_max + r_min) cos(\theta) - h * cos(\frac{r_max + r_min}{r_min} \theta)}
@@ -82,10 +84,12 @@ been scaled to be in the interval [0, 1].
 geom_arc understand the following aesthetics (required aesthetics are in
 bold):
 
-- **x0**
-- **y0**
 - **r_max**
 - **r_min**
+- x0
+- y0
+- xscale
+- yscale
 - h
 - color
 - fill
@@ -122,9 +126,15 @@ ggplot() +
 ggplot() +
   geom_epitrochoid(aes(r_max = 4, r_min = 3, h = 20 / 13))
 
+# Changing the horizontal and vertical scale
+
+ggplot() +
+  geom_epitrochoid(aes(r_max = 4, r_min = 3, xscale = 10, yscale = 3))
+
 # When things go wild
 ggplot(expand.grid(seq(4, 20, by = 2), c(1, 3, 5, 9))) +
-  geom_epitrochoid(aes(r_max = Var1, r_min = Var2, color = Var1)) +
+  geom_epitrochoid(aes(r_max = Var1, r_min = Var2, color = Var1,
+                       xscale = Var1 + Var2, yscale = Var1 + Var2)) +
   coord_fixed() +
   theme_minimal() +
   scale_color_viridis_c(option = "B") +
