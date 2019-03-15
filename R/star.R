@@ -6,11 +6,13 @@
 #' geom_arc understand the following aesthetics (required aesthetics are in
 #' bold):
 #'
-#' - **x0**
-#' - **y0**
 #' - **r_min**
 #' - **r_max**
 #' - **n_tips**
+#' - x0
+#' - y0
+#' - xscale
+#' - yscale
 #' - offset
 #' - color
 #' - fill
@@ -50,6 +52,10 @@
 #' ggplot() +
 #'   geom_star(aes(r_min = 0.7, r_max = 1, n_tips = 5))
 #'
+#' # rescaling
+#' ggplot() +
+#'   geom_star(aes(r_min = 0.5, r_max = 1, n_tips = 5, xscale = 4, yscale = 2))
+#'
 #' # Playing witn offset parameter
 #' ggplot() +
 #'   geom_star(aes(r_min = 0.5, r_max = 1, n_tips = 5, offset = 0))
@@ -81,15 +87,17 @@ StatStar <- ggproto('StatStar', Stat,
                            if (is.null(data)) return(data)
                            if (is.null(data$x0)) data$x0 <- 0
                            if (is.null(data$y0)) data$y0 <- 0
+                           if (is.null(data$xscale)) data$xscale <- 1
+                           if (is.null(data$yscale)) data$yscale <- 1
                            if (is.null(data$offset)) data$offset <- 0.5
                            data$group <- seq_len(nrow(data))
 
-                           data <- tidyr::nest(data, r_min, r_max, n_tips, offset, x0, y0)
+                           data <- tidyr::nest(data, r_min, r_max, n_tips, offset, x0, y0, xscale, yscale)
                            data$data <- lapply(data$data, star_calc, params = params)
                            tidyr::unnest(data)
                          },
                          required_aes = c('r_min', 'r_max', 'n_tips'),
-                         default_aes = aes(x0 = 0, y0 = 0, offset = 0.5),
+                         default_aes = aes(x0 = 0, y0 = 0, offset = 0.5, xscale = 1, yscale = 1),
                          extra_params = c('n_points', 'na.rm')
 )
 
@@ -99,8 +107,8 @@ star_calc <- function(data, params) {
                         pi / data$n_tips * 2 * data$offset
 
   data.frame(
-    x = data$x0 + weave(data$r_max * cos(theta), data$r_min * cos(theta_s)),
-    y = data$y0 + weave(data$r_max * sin(theta), data$r_min * sin(theta_s))
+    x = data$x0 + data$xscale * weave(data$r_max * cos(theta), data$r_min * cos(theta_s)),
+    y = data$y0 + data$yscale * weave(data$r_max * sin(theta), data$r_min * sin(theta_s))
   )
 
 }

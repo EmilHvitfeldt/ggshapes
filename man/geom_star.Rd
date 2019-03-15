@@ -70,11 +70,13 @@ This geom allows you to draw the star curve.
 geom_arc understand the following aesthetics (required aesthetics are in
 bold):
 
-- **x0**
-- **y0**
 - **r_min**
 - **r_max**
 - **n_tips**
+- x0
+- y0
+- xscale
+- yscale
 - offset
 - color
 - fill
@@ -106,6 +108,10 @@ ggplot() +
 
 ggplot() +
   geom_star(aes(r_min = 0.7, r_max = 1, n_tips = 5))
+
+# rescaling
+ggplot() +
+  geom_star(aes(r_min = 0.5, r_max = 1, n_tips = 5, xscale = 4, yscale = 2))
 
 # Playing witn offset parameter
 ggplot() +
