@@ -213,11 +213,12 @@ been scaled to be in the interval [0, 1].</p>
 bold):</p>
 <p>- **r_max**
 - **r_min**
+- h
 - x0
 - y0
 - xscale
 - yscale
-- h
+- rotation
 - color
 - fill
 - size
@@ -260,6 +261,9 @@ bold):</p>
 
 <span class='fu'>ggplot</span>() +
   <span class='fu'>geom_epitrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>xscale</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>yscale</span> <span class='kw'>=</span> <span class='fl'>3</span>))</div><div class='img'><img src='geom_epitrochoid-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Rotating shape</span>
+<span class='fu'>ggplot</span>() +
+  <span class='fu'>geom_epitrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>rotation</span> <span class='kw'>=</span> <span class='no'>pi</span> / <span class='fl'>4</span>))</div><div class='img'><img src='geom_epitrochoid-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># When things go wild</span>
 <span class='fu'>ggplot</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/expand.grid'>expand.grid</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>4</span>, <span class='fl'>20</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>2</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span>, <span class='fl'>9</span>))) +
   <span class='fu'>geom_epitrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='no'>Var1</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='no'>Var2</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>Var1</span>,
@@ -268,7 +272,7 @@ bold):</p>
   <span class='fu'>theme_minimal</span>() +
   <span class='fu'>scale_color_viridis_c</span>(<span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"B"</span>) +
   <span class='fu'>guides</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"none"</span>) +
-  <span class='fu'>facet_wrap</span>(~ <span class='no'>Var2</span>)</div><div class='img'><img src='geom_epitrochoid-7.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>facet_wrap</span>(~ <span class='no'>Var2</span>)</div><div class='img'><img src='geom_epitrochoid-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

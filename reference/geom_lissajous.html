@@ -209,6 +209,7 @@ bold):</p>
 - y0
 - xscale
 - yscale
+- rotation
 - color
 - fill
 - size
@@ -231,12 +232,17 @@ bold):</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>ggplot</span>() +
   <span class='fu'>geom_lissajous</span>(<span class='fu'>aes</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='geom_lissajous-1.png' alt='' width='700' height='433' /></div><div class='input'>
- <span class='fu'>ggplot</span>() +
+<span class='fu'>ggplot</span>() +
   <span class='fu'>geom_lissajous</span>(<span class='fu'>aes</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_lissajous-2.png' alt='' width='700' height='433' /></div><div class='input'>
- <span class='fu'>ggplot</span>() +
+<span class='fu'>ggplot</span>() +
   <span class='fu'>geom_lissajous</span>(<span class='fu'>aes</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>x0</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>4</span>, <span class='fl'>7</span>)))</div><div class='img'><img src='geom_lissajous-3.png' alt='' width='700' height='433' /></div><div class='input'>
- <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_lissajous</span>(<span class='fu'>aes</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>xscale</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>yscale</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='geom_lissajous-4.png' alt='' width='700' height='433' /></div></pre>
+<span class='co'># Scaling shapes</span>
+<span class='fu'>ggplot</span>() +
+  <span class='fu'>geom_lissajous</span>(<span class='fu'>aes</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>xscale</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>yscale</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='geom_lissajous-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Rotation shapes</span>
+<span class='fu'>ggplot</span>() +
+  <span class='fu'>geom_lissajous</span>(<span class='fu'>aes</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rotation</span> <span class='kw'>=</span> <span class='no'>pi</span> / <span class='fl'>4</span>))</div><div class='img'><img src='geom_lissajous-5.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

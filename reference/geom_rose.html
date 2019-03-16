@@ -214,6 +214,7 @@ bold):</p>
 - y0
 - xscale
 - yscale
+- rotation
 - color
 - fill
 - size
@@ -244,11 +245,14 @@ bold):</p>
 <span class='co'># Rescaling</span>
 <span class='fu'>ggplot</span>() +
   <span class='fu'>geom_rose</span>(<span class='fu'>aes</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>xscale</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>yscale</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='geom_rose-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Multiple roses</span>
+<span class='co'># Rotation</span>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_rose</span>(<span class='fu'>aes</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>:<span class='fl'>1</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>x0</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span> * <span class='fl'>3</span>))</div><div class='img'><img src='geom_rose-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_rose</span>(<span class='fu'>aes</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>rotation</span> <span class='kw'>=</span> <span class='no'>pi</span> / <span class='fl'>4</span>))</div><div class='img'><img src='geom_rose-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Multiple roses</span>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_rose</span>(<span class='fu'>aes</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>4</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>)</div><div class='img'><img src='geom_rose-6.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>geom_rose</span>(<span class='fu'>aes</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>:<span class='fl'>1</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>x0</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span> * <span class='fl'>3</span>))</div><div class='img'><img src='geom_rose-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>() +
+  <span class='fu'>geom_rose</span>(<span class='fu'>aes</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>4</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>)</div><div class='img'><img src='geom_rose-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
