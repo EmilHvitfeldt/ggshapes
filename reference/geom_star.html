@@ -194,11 +194,13 @@ layer, as a string.</p></td>
     
     <p>geom_arc understand the following aesthetics (required aesthetics are in
 bold):</p>
-<p>- **x0**
-- **y0**
-- **r_min**
+<p>- **r_min**
 - **r_max**
 - **n_tips**
+- x0
+- y0
+- xscale
+- yscale
 - offset
 - color
 - fill
@@ -226,21 +228,24 @@ bold):</p>
   <span class='fu'>geom_star</span>(<span class='fu'>aes</span>(<span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n_tips</span> <span class='kw'>=</span> <span class='fl'>5</span>))</div><div class='img'><img src='geom_star-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>ggplot</span>() +
   <span class='fu'>geom_star</span>(<span class='fu'>aes</span>(<span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>0.7</span>, <span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n_tips</span> <span class='kw'>=</span> <span class='fl'>5</span>))</div><div class='img'><img src='geom_star-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># rescaling</span>
+<span class='fu'>ggplot</span>() +
+  <span class='fu'>geom_star</span>(<span class='fu'>aes</span>(<span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n_tips</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>xscale</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>yscale</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='geom_star-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Playing witn offset parameter</span>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_star</span>(<span class='fu'>aes</span>(<span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n_tips</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='img'><img src='geom_star-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_star</span>(<span class='fu'>aes</span>(<span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n_tips</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='img'><img src='geom_star-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_star</span>(<span class='fu'>aes</span>(<span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n_tips</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_star-6.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_star</span>(<span class='fu'>aes</span>(<span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n_tips</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_star-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_star</span>(<span class='fu'>aes</span>(<span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n_tips</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>5</span>))</div><div class='img'><img src='geom_star-7.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_star</span>(<span class='fu'>aes</span>(<span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n_tips</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>5</span>))</div><div class='img'><img src='geom_star-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Multiple stars</span>
 <span class='fu'>ggplot</span>() +
   <span class='fu'>geom_star</span>(<span class='fu'>aes</span>(<span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n_tips</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>5</span>, <span class='fl'>7</span>),
-  <span class='kw'>x0</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>4</span>, <span class='fl'>7</span>), <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>4</span>, <span class='fl'>7</span>)))</div><div class='img'><img src='geom_star-8.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='kw'>x0</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>4</span>, <span class='fl'>7</span>), <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>4</span>, <span class='fl'>7</span>)))</div><div class='img'><img src='geom_star-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Regular polygons comes up as a special example when</span>
 <span class='co'># r_max = r_min / cos(pi / n_tips)</span>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_star</span>(<span class='fu'>aes</span>(<span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>0.5</span> / <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Trig'>cos</a></span>(<span class='no'>pi</span> / <span class='fl'>5</span>), <span class='kw'>n_tips</span> <span class='kw'>=</span> <span class='fl'>5</span>))</div><div class='img'><img src='geom_star-9.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>geom_star</span>(<span class='fu'>aes</span>(<span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>0.5</span> / <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Trig'>cos</a></span>(<span class='no'>pi</span> / <span class='fl'>5</span>), <span class='kw'>n_tips</span> <span class='kw'>=</span> <span class='fl'>5</span>))</div><div class='img'><img src='geom_star-10.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

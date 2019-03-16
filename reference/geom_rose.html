@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Draw a rose or Hypotrochoid curve — geom_hypotrochoid • ggshapes</title>
+<title>Draw a rose or rhodonea curve — geom_rose • ggshapes</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -31,12 +31,10 @@
 
 
 
-<meta property="og:title" content="Draw a rose or Hypotrochoid curve — geom_hypotrochoid" />
+<meta property="og:title" content="Draw a rose or rhodonea curve — geom_rose" />
 
-<meta property="og:description" content="This geom allows you to draw the hypotrochoid curve. A hypotrochoid is a
-curve traced by a point attached to a circle of radius r_min rolling around
-the inside of a fixed circle of radius r_max, where the point is at a
-distance h from the center of the interior circle." />
+<meta property="og:description" content="This geom allows you to draw mathematical roses. A rose is a sinusoid
+plotted in polar coordinates." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,25 +101,23 @@ distance h from the center of the interior circle." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Draw a rose or Hypotrochoid curve</h1>
-    <small class="dont-index">Source: <a href='https://github.com/EmilHvitfeldt/ggshapes/blob/master/R/hypotrochoid.R'><code>R/hypotrochoid.R</code></a></small>
-    <div class="hidden name"><code>geom_hypotrochoid.Rd</code></div>
+    <h1>Draw a rose or rhodonea curve</h1>
+    <small class="dont-index">Source: <a href='https://github.com/EmilHvitfeldt/ggshapes/blob/master/R/rose.R'><code>R/rose.R</code></a></small>
+    <div class="hidden name"><code>geom_rose.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This geom allows you to draw the hypotrochoid curve. A hypotrochoid is a
-curve traced by a point attached to a circle of radius r_min rolling around
-the inside of a fixed circle of radius r_max, where the point is at a
-distance h from the center of the interior circle.</p>
+    <p>This geom allows you to draw mathematical roses. A rose is a sinusoid
+plotted in polar coordinates.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>stat_hypotrochoid</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"hypotrochoid"</span>,
+    <pre class="usage"><span class='fu'>stat_rose</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"rose"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>n_points</span> <span class='kw'>=</span> <span class='fl'>360</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
-<span class='fu'>geom_hypotrochoid</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"hypotrochoid"</span>,
+<span class='fu'>geom_rose</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"rose"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>n_points</span> <span class='kw'>=</span> <span class='fl'>360</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
@@ -197,25 +193,27 @@ layer, as a string.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>To unscale the curve, please set xscale and yscale to abs(r_max - r_min) + h.</p>
-<p>The curve follows the the parameterized form</p>
-<p>$$x = (r_max - r_min) cos(\theta) + h * cos(\frac{r_max - r_min}{r_min} \theta)$$
-$$x = (r_max - r_min) sin(\theta) + h * sin(\frac{r_max - r_min}{r_min} \theta)$$</p>
-<p>these curves are closed when the radion \(a / b\) is rational. delta have
-been scaled to be in the interval [0, 1].</p>
+    <p>the shape follows the following parameterized form</p>
+<p>$$x = (cos(k\theta) + c)cos(\theta)$$
+$$y = (cos(k\theta) + c)sin(\theta)$$</p>
+<p>where</p>
+<p>$$k = n / d$$</p>
+<p>the rose will be a closed loop when k is rational. this can easily be
+achived by keeping n and d whole numbers. c is the internal offset parameter
+changing how much the flower spreads out.</p>
     
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
     <p>geom_arc understand the following aesthetics (required aesthetics are in
 bold):</p>
-<p>- **r_max**
-- **r_min**
+<p>- **n**
+- **d**
+- **c**
 - x0
 - y0
 - xscale
 - yscale
-- h
 - color
 - fill
 - size
@@ -232,38 +230,25 @@ bold):</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><a href='https://en.wikipedia.org/wiki/Hypocycloid'>https://en.wikipedia.org/wiki/Hypocycloid</a>
-    <a href='http://xahlee.info/SpecialPlaneCurves_dir/Hypotrochoid_dir/hypotrochoid.html'>http://xahlee.info/SpecialPlaneCurves_dir/Hypotrochoid_dir/hypotrochoid.html</a></p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>[geom_epitrochoid()]</p></div>
+    <p><a href='https://en.wikipedia.org/wiki/Rose_(mathematics)'>https://en.wikipedia.org/wiki/Rose_(mathematics)</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'># When h is missing a hypocycloid is generated</span>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_hypotrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_hypotrochoid-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_rose</span>(<span class='fu'>aes</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='img'><img src='geom_rose-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_hypotrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_hypotrochoid-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_rose</span>(<span class='fu'>aes</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='img'><img src='geom_rose-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_hypotrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>8</span>), <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='geom_hypotrochoid-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># specifying h</span>
+  <span class='fu'>geom_rose</span>(<span class='fu'>aes</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>4</span>))</div><div class='img'><img src='geom_rose-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Rescaling</span>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_hypotrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>9</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>4</span>))</div><div class='img'><img src='geom_hypotrochoid-4.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_rose</span>(<span class='fu'>aes</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>xscale</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>yscale</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='geom_rose-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## Multiple roses</span>
 <span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_hypotrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>20</span> / <span class='fl'>13</span>))</div><div class='img'><img src='geom_hypotrochoid-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># When things go wild</span>
-<span class='fu'>ggplot</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/expand.grid'>expand.grid</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>4</span>, <span class='fl'>20</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>2</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span>, <span class='fl'>9</span>))) +
-  <span class='fu'>geom_hypotrochoid</span>(<span class='fu'>aes</span>(<span class='kw'>r_max</span> <span class='kw'>=</span> <span class='no'>Var1</span>, <span class='kw'>r_min</span> <span class='kw'>=</span> <span class='no'>Var2</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>Var1</span>,
-                        <span class='kw'>xscale</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/MathFun'>abs</a></span>(<span class='no'>Var1</span> - <span class='no'>Var2</span>) + <span class='no'>Var2</span>,
-                        <span class='kw'>yscale</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/MathFun'>abs</a></span>(<span class='no'>Var1</span> - <span class='no'>Var2</span>) + <span class='no'>Var2</span>)) +
-  <span class='fu'>coord_fixed</span>() +
-  <span class='fu'>theme_minimal</span>() +
-  <span class='fu'>scale_color_viridis_c</span>(<span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"B"</span>) +
-  <span class='fu'>guides</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"none"</span>) +
-  <span class='fu'>facet_wrap</span>(~ <span class='no'>Var2</span>)</div><div class='img'><img src='geom_hypotrochoid-6.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>geom_rose</span>(<span class='fu'>aes</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>:<span class='fl'>1</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>x0</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span> * <span class='fl'>3</span>))</div><div class='img'><img src='geom_rose-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>() +
+  <span class='fu'>geom_rose</span>(<span class='fu'>aes</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>4</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>)</div><div class='img'><img src='geom_rose-6.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -277,8 +262,6 @@ bold):</p>
       <li><a href="#computed-variables">Computed variables</a></li>
 
       <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
