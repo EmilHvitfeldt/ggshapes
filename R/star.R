@@ -40,10 +40,10 @@
 #' @examples
 #' # Changing number of tips
 #' ggplot() +
-#'   geom_star(aes(r_min = 0.5, r_max = 1, n_tips = 5))
+#'   geom_star(aes(n_tips = 5))
 #'
 #' ggplot() +
-#'   geom_star(aes(r_min = 0.5, r_max = 1, n_tips = 11))
+#'   geom_star(aes(n_tips = 11))
 #'
 #' # changing radei
 #' ggplot() +
@@ -54,26 +54,27 @@
 #'
 #' # rescaling
 #' ggplot() +
-#'   geom_star(aes(r_min = 0.5, r_max = 1, n_tips = 5, xscale = 4, yscale = 2))
+#'   geom_star(aes( n_tips = 5, xscale = 4, yscale = 2))
 #'
 #' # Rotation
 #' ggplot() +
-#'   geom_star(aes(r_min = 0.5, r_max = 1, n_tips = 5, rotation = pi / 4))
+#'   geom_star(aes(n_tips = 5, rotation = pi / 4))
 #'
 #' # Playing witn offset parameter
 #' ggplot() +
-#'   geom_star(aes(r_min = 0.5, r_max = 1, n_tips = 5, offset = 0))
+#'   geom_star(aes(n_tips = 5, offset = 0))
 #'
 #' ggplot() +
-#'   geom_star(aes(r_min = 0.5, r_max = 1, n_tips = 5, offset = 1))
+#'   geom_star(aes(n_tips = 5, offset = 1))
 #'
 #' ggplot() +
-#'   geom_star(aes(r_min = 0.5, r_max = 1, n_tips = 11, offset = 5))
+#'   geom_star(aes(n_tips = 11, offset = 5))
 #'
 #' # Multiple stars
 #' ggplot() +
-#'   geom_star(aes(r_min = 0.5, r_max = 1, n_tips = c(3, 5, 7),
-#'   x0 = c(1, 4, 7), y0 = c(1, 4, 7)))
+#'   geom_star(aes(n_tips = c(3, 5, 7),
+#'                 x0 = c(1, 4, 7),
+#'                 y0 = c(1, 4, 7)))
 #'
 #' # Regular polygons comes up as a special example when
 #' # r_max = r_min / cos(pi / n_tips)
@@ -103,7 +104,7 @@ StatStar <- ggproto('StatStar', Stat,
                            data$data <- lapply(data$data, star_calc, params = params)
                            tidyr::unnest(data)
                          },
-                         required_aes = c('r_min', 'r_max', 'n_tips'),
+                         required_aes = c('n_tips'),
                          default_aes = aes(x0 = 0, y0 = 0, offset = 0.5, xscale = 1, yscale = 1,
                                            r_max = 1, r_min = 0.5, rotation = 0),
                          extra_params = c('n_points', 'na.rm')
