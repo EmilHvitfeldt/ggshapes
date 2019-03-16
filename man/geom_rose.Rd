@@ -92,6 +92,7 @@ bold):
 - y0
 - xscale
 - yscale
+- rotation
 - color
 - fill
 - size

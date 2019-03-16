@@ -24,12 +24,12 @@
 #'
 #' - **r_max**
 #' - **r_min**
+#' - h
 #' - x0
 #' - y0
 #' - xscale
 #' - yscale
 #' - rotation
-#' - h
 #' - color
 #' - fill
 #' - size

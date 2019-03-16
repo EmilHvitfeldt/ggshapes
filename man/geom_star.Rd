@@ -73,11 +73,12 @@ bold):
 - **n_tips**
 - r_min
 - r_max
+- offset
 - x0
 - y0
 - xscale
 - yscale
-- offset
+- rotation
 - color
 - fill
 - size
