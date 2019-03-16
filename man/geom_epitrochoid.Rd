@@ -66,7 +66,8 @@ layer, as a string.}
 This geom allows you to draw the epitrochoid curve. A epitrochoid is a
 curve traced by a point attached to a circle of radius r_min rolling around
 the outside of a fixed circle of radius r_max, where the point is at a
-distance h from the center of the interior circle.
+distance h from the center of the interior circle. h is the same as r_min
+by default.
 }
 \details{
 To unscale the curve, please set xscale and yscale to r_max + r_min + h.
