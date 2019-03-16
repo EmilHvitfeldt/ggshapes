@@ -106,14 +106,20 @@ bold):
 ggplot() +
   geom_lissajous(aes(a = 5, b = 4, delta = 2))
 
- ggplot() +
+ggplot() +
   geom_lissajous(aes(a = 2, b = 3, delta = 1))
 
- ggplot() +
+ggplot() +
   geom_lissajous(aes(a = 1:3, b = 3, delta = 1, x0 = c(1, 4, 7)))
 
- ggplot() +
+# Scaling shapes
+ggplot() +
   geom_lissajous(aes(a = 2, b = 3, delta = 1, xscale = 5, yscale = 2))
+
+# Rotation shapes
+ggplot() +
+  geom_lissajous(aes(a = 2, b = 3, delta = 1, rotation = pi / 4))
+
 }
 \references{
 \url{https://en.wikipedia.org/wiki/Lissajous_curve}

@@ -49,14 +49,20 @@
 #' ggplot() +
 #'   geom_lissajous(aes(a = 5, b = 4, delta = 2))
 #'
-#'  ggplot() +
+#' ggplot() +
 #'   geom_lissajous(aes(a = 2, b = 3, delta = 1))
 #'
-#'  ggplot() +
+#' ggplot() +
 #'   geom_lissajous(aes(a = 1:3, b = 3, delta = 1, x0 = c(1, 4, 7)))
 #'
-#'  ggplot() +
+#' # Scaling shapes
+#' ggplot() +
 #'   geom_lissajous(aes(a = 2, b = 3, delta = 1, xscale = 5, yscale = 2))
+#'
+#' # Rotation shapes
+#' ggplot() +
+#'   geom_lissajous(aes(a = 2, b = 3, delta = 1, rotation = pi / 4))
+#'
 NULL
 
 #' @rdname ggshapes-extensions
@@ -71,24 +77,27 @@ StatLissajous <- ggproto('StatLissajous', Stat,
                           if (is.null(data$y0)) data$y0 <- 0
                           if (is.null(data$xscale)) data$xscale <- 1
                           if (is.null(data$yscale)) data$yscale <- 1
+                          if (is.null(data$rotation)) data$rotation <- 0
                           data$group <- seq_len(nrow(data))
 
-                          data <- tidyr::nest(data, a, b, delta, x0, y0, xscale, yscale)
+                          data <- tidyr::nest(data, a, b, delta, x0, y0, xscale, yscale, rotation)
                           data$data <- lapply(data$data, lissajous_calc, params = params)
                           tidyr::unnest(data)
                         },
                         required_aes = c('a', 'b', 'delta'),
-                        default_aes = aes(x0 = 0, y0 = 0, xscale = 1, yscale = 1),
+                        default_aes = aes(x0 = 0, y0 = 0, xscale = 1, yscale = 1, rotation = 0),
                         extra_params = c('n_points', 'na.rm')
 )
 
 lissajous_calc <- function(data, params) {
   t <- seq(from = 0, to = 2 * pi, length.out = params$n_points)
 
-  data.frame(
+  out <- data.frame(
     x = data$x0 + data$xscale * sin(data$a * t + data$delta * pi),
     y = data$y0 + data$yscale * sin(data$b * t)
   )
+
+  rotate_df(out, data$rotation)
 }
 
 #' @rdname geom_lissajous

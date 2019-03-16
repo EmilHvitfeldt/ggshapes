@@ -126,6 +126,10 @@ ggplot() +
 ggplot() +
   geom_hypotrochoid(aes(r_max = 4, r_min = 3, h = 20 / 13))
 
+# changing rotation
+ggplot() +
+  geom_hypotrochoid(aes(r_max = 4, r_min = 1, rotation = pi / 4))
+
 # When things go wild
 ggplot(expand.grid(seq(4, 20, by = 2), c(1, 3, 5, 9))) +
   geom_hypotrochoid(aes(r_max = Var1, r_min = Var2, color = Var1,

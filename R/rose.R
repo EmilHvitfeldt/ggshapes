@@ -66,7 +66,11 @@
 #' ggplot() +
 #'   geom_rose(aes(n = 5, d = 4, c = 4, xscale = 6, yscale = 2))
 #'
-#' ## Multiple roses
+#' # Rotation
+#' ggplot() +
+#'   geom_rose(aes(n = 2, d = 1, c = 0, rotation = pi / 4))
+#'
+#' # Multiple roses
 #' ggplot() +
 #'   geom_rose(aes(n = 5:1, d = 1:5, c = 0, x0 = 1:5 * 3))
 #'
@@ -86,14 +90,15 @@ StatRose <- ggproto('StatRose', Stat,
                           if (is.null(data$y0)) data$y0 <- 0
                           if (is.null(data$xscale)) data$xscale <- 1
                           if (is.null(data$yscale)) data$yscale <- 1
+                          if (is.null(data$rotation)) data$rotation <- 0
                           data$group <- seq_len(nrow(data))
 
-                          data <- tidyr::nest(data, n, d, c, x0, y0, xscale, yscale)
+                          data <- tidyr::nest(data, n, d, c, x0, y0, xscale, yscale, rotation)
                           data$data <- lapply(data$data, rose_calc, params = params)
                           tidyr::unnest(data)
                         },
                         required_aes = c('n', 'd', 'c'),
-                        default_aes = aes(x0 = 0, y0 = 0, xscale = 1, yscale = 1),
+                        default_aes = aes(x0 = 0, y0 = 0, xscale = 1, yscale = 1, rotation = 0),
                         extra_params = c('n_points', 'na.rm')
 )
 
@@ -101,10 +106,12 @@ rose_calc <- function(data, params) {
   k <- data$n / data$d
   theta <- seq(from = 0, to = 2 * pi * data$d, length.out = params$n_points)
 
-  data.frame(
+  out <- data.frame(
     x = data$x0 + data$xscale * (cos(k * theta) + data$c) * cos(theta) / (1 + data$c),
     y = data$y0 + data$yscale * (cos(k * theta) + data$c) * sin(theta) / (1 + data$c)
     )
+
+  rotate_df(out, data$rotation)
 }
 
 

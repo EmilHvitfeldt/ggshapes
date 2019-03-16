@@ -91,6 +91,7 @@ bold):
 - y0
 - xscale
 - yscale
+- rotation
 - h
 - color
 - fill
@@ -131,6 +132,10 @@ ggplot() +
 
 ggplot() +
   geom_epitrochoid(aes(r_max = 4, r_min = 3, xscale = 10, yscale = 3))
+
+# Rotating shape
+ggplot() +
+  geom_epitrochoid(aes(r_max = 4, r_min = 3, rotation = pi / 4))
 
 # When things go wild
 ggplot(expand.grid(seq(4, 20, by = 2), c(1, 3, 5, 9))) +

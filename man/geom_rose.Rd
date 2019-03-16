@@ -123,7 +123,11 @@ ggplot() +
 ggplot() +
   geom_rose(aes(n = 5, d = 4, c = 4, xscale = 6, yscale = 2))
 
-## Multiple roses
+# Rotation
+ggplot() +
+  geom_rose(aes(n = 2, d = 1, c = 0, rotation = pi / 4))
+
+# Multiple roses
 ggplot() +
   geom_rose(aes(n = 5:1, d = 1:5, c = 0, x0 = 1:5 * 3))
 
